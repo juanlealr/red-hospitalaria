@@ -1,0 +1,83 @@
+# G4 · Red hospitalaria multi-sede
+
+Sistema desarrollado para gestionar diferentes procesos de una red hospitalaria multi-sede, aplicando principios de **DDD (Domain-Driven Design)** y separación por subdominios.
+
+### Laboratorio – Dev2
+
+El subdominio de Laboratorio permite gestionar las órdenes de exámenes y sus resultados.
+
+Componentes principales:
+
+* `OrdenLaboratorio`
+* `ResultadoExamen`
+* `CierreOrdenLaboratorioService`
+* `OrdenLaboratorioFactory`
+
+Regla principal:
+
+> Una orden de laboratorio solo puede cerrarse cuando tiene un resultado registrado.
+
+| Paso | Actividad                                             | Tiempo estimado | Fecha        | Tiempo de ejecución real |
+| ---- | ----------------------------------------------------- | --------------: | ------------ | -----------------------: |
+| 1    | Lenguaje Ubicuo                                       |          20 min | [28/09/2026] |                 [18 min] |
+| 2    | Value Object – `ResultadoExamen`                      |          45 min | [28/09/2026] |                 [50 min] |
+| 3    | Servicio de Dominio – `CierreOrdenLaboratorioService` |          45 min | [28/09/2026] |                 [50 min] |
+| 4    | Límite del Agregado – `OrdenLaboratorio`              |             1 h | [28/09/2026] |                 [1:30 min] |
+| 5    | Factory – `OrdenLaboratorioFactory`                   |          30 min | [28/09/2026] |                 [40 min] |
+
+
+## 🛠️ Tecnologías
+
+* Java 25
+* Spring Boot 4.1.1
+* Maven
+* Git / GitHub
+
+## 📁 Estructura
+
+```text
+src/
+└── main/
+    └── java/
+        └── [paquete-base]/
+            ├── laboratorio/
+            ├── admisiones/
+            └── farmacia/
+```
+
+## ▶️ Ejecución
+
+Clonar el repositorio:
+
+```bash
+git clone [URL_DEL_REPOSITORIO]
+```
+
+Ingresar al proyecto:
+
+```bash
+cd [NOMBRE_DEL_PROYECTO]
+```
+
+Ejecutar con Maven:
+
+```bash
+./mvnw spring-boot:run
+```
+
+En Windows también puede utilizarse:
+
+```bash
+mvnw.cmd spring-boot:run
+```
+
+## 🌿 Ramas
+
+Cada integrante trabaja en su propia rama.
+
+Ejemplo para Dev2:
+
+```text
+dev-2-laboratorio
+```
+
