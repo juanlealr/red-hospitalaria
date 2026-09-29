@@ -137,6 +137,17 @@ Mismo formato de 4 preguntas que usó el taller individual sobre `Investigador`:
 | ¿Por qué `OrdenLaboratorio` (subdominio de Dev 2) NO está dentro de este límite? | Porque pertenece a otro Bounded Context con otro dueño. Admision solo necesita **saber si hay órdenes pendientes** para decidir el alta (HU-09) — no necesita gestionarlas. Por eso `darDeAlta(...)` recibe un `boolean` ya resuelto, nunca la entidad `OrdenLaboratorio`. |
 | ¿Qué pasaría si alguien agrega un campo `List<OrdenLaboratorio> ordenes` directo en `Admision`? | Rompería el límite: cada cambio en una orden de laboratorio (que Dev 2 controla) dispararía una transacción sobre `Admision`; los dos subdominios dejarían de poder evolucionar y desplegarse por separado — exactamente el riesgo que señala la guía sobre Agregados grandes. |
 
+## 5.1 Límite del Agregado — mini-ADR (Dev 3 · SolicitudMedicamento)
+
+Mismo formato de 4 preguntas que usó el taller individual sobre `Investigador`:
+
+| Pregunta | Respuesta |
+|---|---|
+| ¿Cuál es la raíz del Agregado? | `SolicitudMedicamento` — será la única clase con `@Entity` en el paquete `farmacia` cuando el proyecto llegue a persistencia, y es el único punto de entrada del subdominio: el estado de la solicitud y la cobertura solo cambian a través de ella. |
+| ¿Qué vive dentro del límite? | `id`, `pacienteId`, `medicoId`, `medicamento`, `fechaSolicitud`, `estado` (RECIBIDA → COBERTURA_VERIFICADA → DESPACHADA), `cobertura` (Value Object `Cobertura`) y `fechaDespacho`. |
+| ¿Por qué `Admision` (subdominio de Dev 1) NO está dentro de este límite? | Porque pertenece a otro Bounded Context con otro dueño. Farmacia solo necesita saber *de qué paciente* es la solicitud para consultar su cobertura — por eso guarda `pacienteId`, nunca la entidad `Admision` completa. Lo mismo aplica al médico (`medicoId`, la solicitud médica asociada). |
+| ¿Qué pasaría si alguien agrega un campo `Admision admision` directo en `SolicitudMedicamento`? | Rompería el límite: un cambio de sede o de cama en Admisiones (que Dev 1 controla) arrastraría transacciones sobre Farmacia, y los dos subdominios dejarían de poder evolucionar por separado — exactamente el riesgo que señala la guía sobre Agregados grandes. |
+
 ## 6. Repositorio de GitHub
 
 - Enlace: `https://github.com/juanlealr/red-hospitalaria`
