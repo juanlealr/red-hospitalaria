@@ -1,4 +1,4 @@
-package co.edu.uptc.red_hospitalaria.laboratorio.infraestructura;
+package co.edu.uptc.red_hospitalaria.laboratorio.infraestructura.salida.persistencia;
 
 import co.edu.uptc.red_hospitalaria.laboratorio.aplicacion.RepositorioOrdenesLaboratorio;
 import co.edu.uptc.red_hospitalaria.laboratorio.dominio.OrdenLaboratorio;
